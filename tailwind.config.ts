@@ -1,8 +1,8 @@
 import tailwindcssAnimate from 'tailwindcss-animate'
 import typography from '@tailwindcss/typography'
+import type { Config } from 'tailwindcss'
 
-/** @type {import('tailwindcss').Config} */
-const config = {
+const config: Config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -11,21 +11,6 @@ const config = {
   ],
   darkMode: ['selector', '[data-theme="dark"]'],
   plugins: [tailwindcssAnimate, typography],
-  prefix: '',
-  safelist: [
-    'lg:col-span-4',
-    'lg:col-span-6',
-    'lg:col-span-8',
-    'lg:col-span-12',
-    'border-border',
-    'bg-card',
-    'border-error',
-    'bg-error/30',
-    'border-success',
-    'bg-success/30',
-    'border-warning',
-    'bg-warning/30',
-  ],
   theme: {
     container: {
       center: true,
