@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    portfolioItems: PortfolioItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    portfolioItems: PortfolioItemsSelect<false> | PortfolioItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -191,7 +193,23 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | AboutBlock
+    | BrandLogosBlock
+    | CallToActionBlock
+    | InsightsGridBlock
+    | MapBlock
+    | NewsletterBlock
+    | PageHeaderBlock
+    | PortfolioGalleryBlock
+    | ServicesGridBlock
+    | TestimonialsSectionBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -390,48 +408,25 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
+  title: string;
+  description?: string | null;
+  ctaButtons?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline-solid') | null;
+        button: {
+          text: string;
+          href: string;
         };
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-gray-100). Defaults to bg-gray-100 if not set.
+   */
+  backgroundColor?: string | null;
+  centered?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'cta';
+  blockType: 'call-to-action-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -729,6 +724,213 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  title: string;
+  description: string;
+  stats?:
+    | {
+        number: number;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaButton: {
+    text: string;
+    href: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogosBlock".
+ */
+export interface BrandLogosBlock {
+  title?: string | null;
+  logos?:
+    | {
+        name: string;
+        logo: number | Media;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-gray-100). Defaults to bg-white if not set.
+   */
+  backgroundColor?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'brand-logos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsGridBlock".
+ */
+export interface InsightsGridBlock {
+  title?: string | null;
+  /**
+   * Select the insight/blog posts to display in the grid.
+   */
+  insights: (number | Post)[];
+  columns?: ('2' | '3' | '4') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'insights-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock".
+ */
+export interface MapBlock {
+  title: string;
+  description?: string | null;
+  /**
+   * Enter the full embed URL for the map (e.g., from Google Maps).
+   */
+  mapEmbedUrl: string;
+  /**
+   * Optional: Specify map height with units (e.g., 400px, 50vh). Defaults to 400px.
+   */
+  height?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'map';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterBlock".
+ */
+export interface NewsletterBlock {
+  title: string;
+  description: string;
+  placeholder?: string | null;
+  buttonText?: string | null;
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-blue-600). Defaults to bg-blue-600 if not set.
+   */
+  backgroundColor?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsletter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeaderBlock".
+ */
+export interface PageHeaderBlock {
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Optional background image for the header section.
+   */
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'page-header';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioGalleryBlock".
+ */
+export interface PortfolioGalleryBlock {
+  title?: string | null;
+  /**
+   * Select the portfolio items to display.
+   */
+  items: (number | PortfolioItem)[];
+  /**
+   * Define categories for filtering. Ensure these match categories in your portfolio items.
+   */
+  categories?:
+    | {
+        categoryName: string;
+        id?: string | null;
+      }[]
+    | null;
+  showFilters?: boolean | null;
+  columns?: ('2' | '3' | '4') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'portfolio-gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolioItems".
+ */
+export interface PortfolioItem {
+  id: number;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  /**
+   * Category for filtering (e.g., Web Design, Branding).
+   */
+  category: string;
+  image: number | Media;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock".
+ */
+export interface ServicesGridBlock {
+  title?: string | null;
+  services: {
+    title: string;
+    description: string;
+    /**
+     * Optional: Icon name (e.g., from an icon library) or path to an SVG.
+     */
+    icon?: string | null;
+    features?:
+      | {
+          feature: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  columns?: ('2' | '3' | '4') | null;
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-gray-100). Defaults to bg-yellow-50 if not set.
+   */
+  backgroundColor?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'services-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsSectionBlock".
+ */
+export interface TestimonialsSectionBlock {
+  title: string;
+  testimonials: {
+    quote: string;
+    author: string;
+    company?: string | null;
+    /**
+     * Optional: Star rating from 1 to 5.
+     */
+    rating?: number | null;
+    id?: string | null;
+  }[];
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-blue-600). Defaults to bg-blue-600 if not set.
+   */
+  backgroundColor?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -921,6 +1123,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'portfolioItems';
+        value: number | PortfolioItem;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1018,6 +1224,16 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        about?: T | AboutBlockSelect<T>;
+        'brand-logos'?: T | BrandLogosBlockSelect<T>;
+        'call-to-action-block'?: T | CallToActionBlockSelect<T>;
+        'insights-grid'?: T | InsightsGridBlockSelect<T>;
+        map?: T | MapBlockSelect<T>;
+        newsletter?: T | NewsletterBlockSelect<T>;
+        'page-header'?: T | PageHeaderBlockSelect<T>;
+        'portfolio-gallery'?: T | PortfolioGalleryBlockSelect<T>;
+        'services-grid'?: T | ServicesGridBlockSelect<T>;
+        'testimonials-section'?: T | TestimonialsSectionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1038,22 +1254,21 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
+  title?: T;
+  description?: T;
+  ctaButtons?:
     | T
     | {
-        link?:
+        button?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
+              text?: T;
+              href?: T;
             };
         id?: T;
       };
+  backgroundColor?: T;
+  centered?: T;
   id?: T;
   blockName?: T;
 }
@@ -1114,6 +1329,156 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  stats?:
+    | T
+    | {
+        number?: T;
+        label?: T;
+        id?: T;
+      };
+  ctaButton?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogosBlock_select".
+ */
+export interface BrandLogosBlockSelect<T extends boolean = true> {
+  title?: T;
+  logos?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        url?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsGridBlock_select".
+ */
+export interface InsightsGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  insights?: T;
+  columns?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock_select".
+ */
+export interface MapBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  mapEmbedUrl?: T;
+  height?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterBlock_select".
+ */
+export interface NewsletterBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  placeholder?: T;
+  buttonText?: T;
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeaderBlock_select".
+ */
+export interface PageHeaderBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioGalleryBlock_select".
+ */
+export interface PortfolioGalleryBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?: T;
+  categories?:
+    | T
+    | {
+        categoryName?: T;
+        id?: T;
+      };
+  showFilters?: T;
+  columns?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock_select".
+ */
+export interface ServicesGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  services?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  columns?: T;
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsSectionBlock_select".
+ */
+export interface TestimonialsSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        company?: T;
+        rating?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -1276,6 +1641,20 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolioItems_select".
+ */
+export interface PortfolioItemsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  category?: T;
+  image?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -7,6 +7,16 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { About } from '../../blocks/AboutBlock/config'
+import { BrandLogos } from '../../blocks/BrandLogosBlock/config'
+import { CallToActionBlock } from '../../blocks/callToActionBlock/config'
+import { InsightsGrid } from '../../blocks/InsightsGridBlock/config'
+import { Map } from '../../blocks/MapBlock/config'
+import { Newsletter } from '../../blocks/NewsletterBlock/config'
+import { PageHeader } from '../../blocks/PageHeaderBlock/config'
+import { PortfolioGallery } from '../../blocks/PortfolioGalleryBlock/config'
+import { ServicesGrid } from '../../blocks/ServicesGridBlock/config'
+import { Testimonials } from '../../blocks/TestimonialsSectionBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -75,7 +85,23 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                About,
+                BrandLogos,
+                CallToActionBlock,
+                InsightsGrid,
+                Map,
+                Newsletter,
+                PageHeader,
+                PortfolioGallery,
+                ServicesGrid,
+                Testimonials,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
