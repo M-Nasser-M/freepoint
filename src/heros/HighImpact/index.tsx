@@ -2,14 +2,12 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-
 import type { Page } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 
 import { Button } from '@/components/ui/button'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,23 +38,7 @@ const buttonVariants = {
   },
 }
 
-type HighImpactHeroProps = Omit<Extract<Page['hero'], { type: 'highImpact' }>, 'links' | 'richText'> & {
-  links?: Array<{
-    link: {
-      type?: ('reference' | 'custom') | null
-      newTab?: boolean | null
-      reference?: {
-        relationTo: 'pages'
-        value: string | Page
-      } | null
-      url?: string | null
-      label: string
-      appearance?: ('default' | 'secondary' | 'link' | 'outline' | 'inline' | 'destructive' | 'ghost') | null
-      icon?: string | null // Assuming icon is optional string
-    }
-    id?: string | null
-  }> | null
-}
+type HighImpactHeroProps = Page['hero']
 
 export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
   links,
@@ -76,7 +58,7 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
   const secondaryButtonLink = links?.[1]?.link
 
   // Assuming an overlay is always desired for high-impact heroes for text readability.
-  const overlay = true; // Ensure text readability over the background media
+  const overlay = true // Ensure text readability over the background media
 
   return (
     <>
@@ -93,84 +75,82 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
         className="relative bg-cover bg-center min-h-screen flex items-center py-24 md:py-32"
         style={!media ? { backgroundColor: '#0F172A' /* e.g., slate-900 */ } : {}}
       >
-      {media && typeof media === 'object' && (
-        <>
-          <div className="absolute inset-0 w-full h-full -z-10">
-            <Media resource={media} fill imgClassName="object-cover" priority />
-          </div>
-          {overlay && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0 bg-black z-0"
-            />
-          )}
-        </>
-      )}
+        {media && typeof media === 'object' && (
+          <>
+            <div className="absolute inset-0 w-full h-full -z-10">
+              <Media resource={media} fill imgClassName="object-cover" priority />
+            </div>
+            {overlay && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.6 }}
+                transition={{ duration: 1 }}
+                className="absolute inset-0 bg-black z-0"
+              />
+            )}
+          </>
+        )}
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center h-full">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="max-w-3xl text-left text-white"
-        >
-                    {(line1 || highlightedWord || line2) && (
-            <motion.h1
-              variants={itemVariants}
-              className="text-5xl sm:text-6xl md:text-7xl font-bold !leading-tight mb-6"
-            >
-              {line1}{line1 && highlightedWord && ' '}
-              {highlightedWord && (
-                <span className="text-blue-400 highlighted-word-star">
-                  {highlightedWord}
-                </span>
-              )}
-              {line2 && (highlightedWord || line1) && ' '}{line2}
-            </motion.h1>
-          )}
-          {subheadline && (
-            <motion.p
-              variants={itemVariants}
-              className="text-lg sm:text-xl md:text-2xl text-slate-200 max-w-2xl opacity-90 mb-10"
-            >
-              {subheadline}
-            </motion.p>
-          )}
-
+        <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center h-full">
           <motion.div
-            variants={buttonVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-start mt-8"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="max-w-3xl text-left text-white"
           >
-            {primaryButtonLink && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-yellow-400 text-black hover:bg-yellow-300 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md"
-                >
-                  <CMSLink {...primaryButtonLink} />
-                </Button>
-              </motion.div>
+            {(line1 || highlightedWord || line2) && (
+              <motion.h1
+                variants={itemVariants}
+                className="text-5xl sm:text-6xl md:text-7xl font-bold !leading-tight mb-6"
+              >
+                {line1}
+                {line1 && highlightedWord && ' '}
+                {highlightedWord && (
+                  <span className="text-blue-400 highlighted-word-star">{highlightedWord}</span>
+                )}
+                {line2 && (highlightedWord || line1) && ' '}
+                {line2}
+              </motion.h1>
             )}
-            {secondaryButtonLink && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-slate-700/50 text-white border border-slate-600 hover:bg-slate-600/70 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md backdrop-blur-sm"
-                >
-                  <CMSLink {...secondaryButtonLink} />
-                </Button>
-              </motion.div>
+            {subheadline && (
+              <motion.p
+                variants={itemVariants}
+                className="text-lg sm:text-xl md:text-2xl text-slate-200 max-w-2xl opacity-90 mb-10"
+              >
+                {subheadline}
+              </motion.p>
             )}
-          </motion.div>
-        </motion.div>
-      </div>
 
-      
+            <motion.div
+              variants={buttonVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-start mt-8"
+            >
+              {primaryButtonLink && (
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-yellow-400 text-black hover:bg-yellow-300 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md"
+                  >
+                    <CMSLink {...primaryButtonLink} />
+                  </Button>
+                </motion.div>
+              )}
+              {secondaryButtonLink && (
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="bg-slate-700/50 text-white border border-slate-600 hover:bg-slate-600/70 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md backdrop-blur-sm"
+                  >
+                    <CMSLink {...secondaryButtonLink} />
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
     </>
   )

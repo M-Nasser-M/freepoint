@@ -3,7 +3,7 @@ import type { Page } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-type LowImpactHeroProps = Extract<Page['hero'], { type: 'lowImpact' }>
+type LowImpactHeroProps = Page['hero']
 
 export const LowImpactHero: React.FC<LowImpactHeroProps> = ({ line1, media }) => {
   return (
@@ -19,9 +19,7 @@ export const LowImpactHero: React.FC<LowImpactHeroProps> = ({ line1, media }) =>
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         {line1 && (
-          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 uppercase">
-            {line1}
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 uppercase">{line1}</h1>
         )}
       </div>
     </section>

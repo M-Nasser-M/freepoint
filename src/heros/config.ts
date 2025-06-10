@@ -1,7 +1,5 @@
 import type { Field } from 'payload'
 
-
-
 import { linkGroup } from '@/fields/linkGroup'
 
 export const hero: Field = {
@@ -33,12 +31,11 @@ export const hero: Field = {
       ],
       required: true,
     },
-        {
+    {
       name: 'line1',
       type: 'text',
       label: 'Headline Part 1',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
         description: 'The first part of the main headline, before the highlighted word.',
       },
     },
@@ -47,7 +44,6 @@ export const hero: Field = {
       type: 'text',
       label: 'Highlighted Word',
       admin: {
-        condition: (_, { type } = {}) => type === 'highImpact',
         description: 'The word in the headline to be specially styled (e.g., blue with a star).',
       },
     },
@@ -56,7 +52,6 @@ export const hero: Field = {
       type: 'text',
       label: 'Headline Part 2',
       admin: {
-        condition: (_, { type } = {}) => type === 'highImpact',
         description: 'The part of the main headline after the highlighted word (optional).',
       },
     },
@@ -65,23 +60,7 @@ export const hero: Field = {
       type: 'textarea',
       label: 'Subheadline',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
         description: 'The paragraph of text below the main headline.',
-      },
-    },
-    {
-      name: 'layout',
-      type: 'select',
-      label: 'Layout',
-      defaultValue: 'textOnLeft',
-      options: [
-        {
-          label: 'Text on Left, Image on Right',
-          value: 'textOnLeft',
-        },
-      ],
-      admin: {
-        condition: (_, { type } = {}) => type === 'mediumImpact',
       },
     },
     linkGroup({
@@ -92,9 +71,6 @@ export const hero: Field = {
     {
       name: 'media',
       type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
-      },
       relationTo: 'media',
       required: true,
     },
