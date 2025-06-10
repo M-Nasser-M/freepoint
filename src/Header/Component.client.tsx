@@ -39,7 +39,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}
     >
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         <div className="flex items-center justify-between relative">
           {/* Left navigation (first 4 links) – desktop only */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -54,7 +54,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   {...item}
                   className="text-gray-700 hover:text-blue-600 transition-colors duration-300 relative group"
                 >
-                  {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
                 </CMSLink>
               </motion.div>
@@ -91,7 +90,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   {...item}
                   className="text-gray-700 hover:text-blue-600 transition-colors duration-300 relative group"
                 >
-                  {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
                 </CMSLink>
               </motion.div>
@@ -146,9 +144,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     <CMSLink
                       {...item}
                       className="text-gray-700 hover:text-blue-600 py-2 transition-colors duration-300"
-                    >
-                      {item.label}
-                    </CMSLink>
+                    />
                   </div>
                 ))}
               </nav>
