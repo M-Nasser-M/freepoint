@@ -25,6 +25,11 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'logo',
+      type: 'relationship',
+      relationTo: 'media',
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],
