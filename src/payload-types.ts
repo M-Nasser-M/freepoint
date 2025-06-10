@@ -2047,6 +2047,18 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  companyInfo?: {
+    description?: string | null;
+    phone?: string | null;
+    email?: string | null;
+  };
+  socialLinks?:
+    | {
+        platform: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2093,6 +2105,20 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         order?: T;
+        id?: T;
+      };
+  companyInfo?:
+    | T
+    | {
+        description?: T;
+        phone?: T;
+        email?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;

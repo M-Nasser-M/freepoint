@@ -31,6 +31,50 @@ export const Footer: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'companyInfo',
+      type: 'group',
+      label: 'Company Information',
+      fields: [
+        {
+          name: 'description',
+          type: 'text',
+          label: 'Description',
+        },
+        {
+          name: 'phone',
+          type: 'text',
+          label: 'Phone Number',
+        },
+        {
+          name: 'email',
+          type: 'email',
+          label: 'Email Address',
+        },
+      ],
+    },
+    {
+      name: 'socialLinks',
+      type: 'array',
+      label: 'Social Links',
+      fields: [
+        {
+          name: 'platform',
+          type: 'text',
+          label: 'Platform',
+          required: true,
+        },
+        {
+          name: 'url',
+          type: 'text',
+          label: 'URL',
+          required: true,
+        },
+      ],
+      admin: {
+        initCollapsed: true,
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],

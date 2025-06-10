@@ -59,7 +59,7 @@ export function TestimonialsSectionBlock({
   title,
   testimonials = [],
   backgroundColor = 'bg-blue-600',
-  textColor = 'text-white',
+  textColor = 'text-black',
   accentColor = 'text-yellow-400',
 }: TestimonialsSectionBlockProps) {
   return (
@@ -88,12 +88,14 @@ export function TestimonialsSectionBlock({
               variants={itemVariants}
               whileHover={{
                 y: -8,
-                boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)",
+                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
                 transition: { duration: 0.25 },
               }}
               className="h-full"
             >
-              <Card className={`h-full flex flex-col ${backgroundColor === 'bg-blue-600' || backgroundColor === 'bg-slate-800' ? 'bg-white/10' : 'bg-white'} rounded-lg shadow-lg overflow-hidden`}>
+              <Card
+                className={`h-full flex flex-col ${backgroundColor === 'bg-blue-600' || backgroundColor === 'bg-slate-800' ? 'bg-white/10' : 'bg-white'} rounded-lg shadow-lg overflow-hidden`}
+              >
                 <CardContent className={`p-6 flex flex-col flex-grow ${textColor}`}>
                   {testimonial.rating && testimonial.rating > 0 && (
                     <div className="flex mb-3">
