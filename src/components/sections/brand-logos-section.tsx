@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { motion } from "framer-motion"
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 interface BrandLogo {
   name: string
@@ -32,11 +32,15 @@ const logoVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
 }
 
-export function BrandLogosSection({ logos, title, backgroundColor = "bg-white" }: BrandLogosSectionProps) {
+export function BrandLogosSection({
+  logos,
+  title,
+  backgroundColor = 'bg-white',
+}: BrandLogosSectionProps) {
   return (
     <section className={`py-12 ${backgroundColor}`}>
       <div className="container mx-auto px-4">
@@ -54,17 +58,17 @@ export function BrandLogosSection({ logos, title, backgroundColor = "bg-white" }
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
           className="flex flex-wrap justify-center items-center gap-8 md:gap-12"
         >
-          {logos.map((brand, index) => (
+          {logos.map((brand) => (
             <motion.div
               key={brand.name}
               variants={logoVariants}
               whileHover={{
                 scale: 1.1,
-                filter: "grayscale(0%)",
+                filter: 'grayscale(0%)',
                 transition: { duration: 0.3 },
               }}
               className="grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
@@ -72,7 +76,7 @@ export function BrandLogosSection({ logos, title, backgroundColor = "bg-white" }
               {brand.url ? (
                 <a href={brand.url} target="_blank" rel="noopener noreferrer">
                   <Image
-                    src={brand.logo || "/placeholder.svg"}
+                    src={brand.logo || '/placeholder.svg'}
                     alt={brand.name}
                     width={120}
                     height={60}
@@ -81,7 +85,7 @@ export function BrandLogosSection({ logos, title, backgroundColor = "bg-white" }
                 </a>
               ) : (
                 <Image
-                  src={brand.logo || "/placeholder.svg"}
+                  src={brand.logo || '/placeholder.svg'}
                   alt={brand.name}
                   width={120}
                   height={60}

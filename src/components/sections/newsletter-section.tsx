@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
 
 interface NewsletterSectionProps {
   title: string
@@ -19,18 +19,18 @@ interface NewsletterSectionProps {
 export function NewsletterSection({
   title,
   description,
-  placeholder = "Email",
-  buttonText = "Subscribe",
-  backgroundColor = "bg-blue-600",
+  placeholder = 'Email',
+  buttonText = 'Subscribe',
+  backgroundColor = 'bg-blue-600',
 }: NewsletterSectionProps) {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState('')
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubscribed(true)
     setTimeout(() => setIsSubscribed(false), 3000)
-    setEmail("")
+    setEmail('')
   }
 
   return (
@@ -57,7 +57,6 @@ export function NewsletterSection({
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               animate={{ x: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3 }}
             >
               <ArrowRight className="text-yellow-400" size={32} />
             </motion.div>

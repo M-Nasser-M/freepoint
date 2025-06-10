@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 
 interface PortfolioItem {
   id: string
@@ -20,24 +20,13 @@ interface PortfolioGalleryProps {
   columns?: 2 | 3 | 4
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-}
-
 const itemVariants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
   exit: {
     opacity: 0,
@@ -46,19 +35,24 @@ const itemVariants = {
   },
 }
 
-export function PortfolioGallery({ items, categories = [], showFilters = true, columns = 3 }: PortfolioGalleryProps) {
-  const [activeFilter, setActiveFilter] = useState("All Works")
+export function PortfolioGallery({
+  items,
+  categories = [],
+  showFilters = true,
+  columns = 3,
+}: PortfolioGalleryProps) {
+  const [activeFilter, setActiveFilter] = useState('All Works')
   const [filteredItems, setFilteredItems] = useState(items)
 
   const gridCols = {
-    2: "md:grid-cols-2",
-    3: "md:grid-cols-3",
-    4: "md:grid-cols-4",
+    2: 'md:grid-cols-2',
+    3: 'md:grid-cols-3',
+    4: 'md:grid-cols-4',
   }
 
   const handleFilter = (category: string) => {
     setActiveFilter(category)
-    if (category === "All Works") {
+    if (category === 'All Works') {
       setFilteredItems(items)
     } else {
       setFilteredItems(items.filter((item) => item.category === category))
@@ -78,9 +72,9 @@ export function PortfolioGallery({ items, categories = [], showFilters = true, c
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 variant="outline"
-                onClick={() => handleFilter("All Works")}
+                onClick={() => handleFilter('All Works')}
                 className={`transition-all duration-300 ${
-                  activeFilter === "All Works" ? "bg-blue-600 text-white" : ""
+                  activeFilter === 'All Works' ? 'bg-blue-600 text-white' : ''
                 }`}
               >
                 All Works
@@ -91,7 +85,7 @@ export function PortfolioGallery({ items, categories = [], showFilters = true, c
                 <Button
                   variant="outline"
                   onClick={() => handleFilter(category)}
-                  className={`transition-all duration-300 ${activeFilter === category ? "bg-blue-600 text-white" : ""}`}
+                  className={`transition-all duration-300 ${activeFilter === category ? 'bg-blue-600 text-white' : ''}`}
                 >
                   {category}
                 </Button>
@@ -115,7 +109,7 @@ export function PortfolioGallery({ items, categories = [], showFilters = true, c
               >
                 <div className="relative overflow-hidden rounded-lg aspect-video">
                   <Image
-                    src={item.image || "/placeholder.svg"}
+                    src={item.image || '/placeholder.svg'}
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"

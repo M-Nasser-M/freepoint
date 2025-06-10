@@ -1,10 +1,9 @@
 interface PageHeaderProps {
   title: string
   subtitle?: string
-  backgroundImage?: string
 }
 
-export function PageHeader({ title, subtitle, backgroundImage }: PageHeaderProps) {
+export function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4 text-center">

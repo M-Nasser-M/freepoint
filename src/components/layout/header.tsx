@@ -1,9 +1,10 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 interface HeaderProps {
   logo?: string
@@ -13,7 +14,7 @@ interface HeaderProps {
   }>
 }
 
-export function Header({ logo = "/placeholder.svg?height=40&width=40", navigation }: HeaderProps) {
+export function Header({ logo, navigation }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -21,26 +22,30 @@ export function Header({ logo = "/placeholder.svg?height=40&width=40", navigatio
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white"
+        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">FP</span>
-              </div>
+              {logo ? (
+                <Image src={logo} alt="Logo" width={40} height={40} />
+              ) : (
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">FP</span>
+                </div>
+              )}
             </Link>
           </motion.div>
 
@@ -101,7 +106,7 @@ export function Header({ logo = "/placeholder.svg?height=40&width=40", navigatio
           {isMobileMenuOpen && (
             <motion.nav
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="md:hidden mt-4 pb-4 border-t pt-4"
