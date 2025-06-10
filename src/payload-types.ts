@@ -168,6 +168,7 @@ export interface Page {
      * The paragraph of text below the main headline.
      */
     subheadline?: string | null;
+    layout?: 'textOnLeft' | null;
     links?:
       | {
           link: {
@@ -1252,6 +1253,7 @@ export interface PagesSelect<T extends boolean = true> {
         highlightedWord?: T;
         line2?: T;
         subheadline?: T;
+        layout?: T;
         links?:
           | T
           | {
