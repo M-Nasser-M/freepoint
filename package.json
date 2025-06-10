@@ -71,9 +71,5 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.8",
     "typescript": "5.8.3"
-  },
-  "engines": {
-    "node": ">=22.15.1",
-    "bun": "^1.2.13"
   }
 }
