@@ -2041,33 +2041,6 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
-  companyInfo: {
-    description: string;
-    phone: string;
-    email: string;
-  };
-  socialLinks?:
-    | {
-        platform: 'facebook' | 'instagram' | 'linkedin';
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  logo?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2114,29 +2087,6 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  companyInfo?:
-    | T
-    | {
-        description?: T;
-        phone?: T;
-        email?: T;
-      };
-  socialLinks?:
-    | T
-    | {
-        platform?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

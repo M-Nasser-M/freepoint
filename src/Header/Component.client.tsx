@@ -39,7 +39,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between relative">
           {/* Left navigation (first 4 links) – desktop only */}
           <nav className="hidden md:flex items-center space-x-8">
