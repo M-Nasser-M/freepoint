@@ -1,11 +1,11 @@
 // storage-adapter-import-placeholder
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
-// import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -70,18 +70,7 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users, PortfolioItems],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
-  plugins: [
-    ...plugins,
-    // vercelBlobStorage({
-    //   enabled: true, // Optional, defaults to true
-    //   // Specify which collections should use Vercel Blob
-    //   collections: {
-    //     media: true,
-    //   },
-    //   // Token provided by Vercel once Blob storage is added to your Vercel project
-    //   token: process.env.BLOB_READ_WRITE_TOKEN,
-    // }),
-  ],
+  plugins: [...plugins],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
@@ -102,4 +91,9 @@ export default buildConfig({
     },
     tasks: [],
   },
+  email: resendAdapter({
+    defaultFromAddress: 'no-reply@freepoint-eg.com',
+    defaultFromName: 'FreePoint',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
 })
