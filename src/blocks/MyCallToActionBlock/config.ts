@@ -1,8 +1,8 @@
 import { Block } from 'payload'
 
-export const CallToActionBlock: Block = {
-  slug: 'call-to-action-block',
-  interfaceName: 'CallToActionBlock',
+export const MyCallToActionBlock: Block = {
+  slug: 'my-call-to-action-block',
+  interfaceName: 'MyCallToActionBlock',
   fields: [
     {
       name: 'title',

@@ -9,7 +9,7 @@ import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { About } from '../../blocks/AboutBlock/config'
 import { BrandLogos } from '../../blocks/BrandLogosBlock/config'
-import { CallToActionBlock } from '../../blocks/callToActionBlock/config'
+import { MyCallToActionBlock } from '../../blocks/MyCallToActionBlock/config'
 import { InsightsGrid } from '../../blocks/InsightsGridBlock/config'
 import { Map } from '../../blocks/MapBlock/config'
 import { Newsletter } from '../../blocks/NewsletterBlock/config'
@@ -93,7 +93,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 About,
                 BrandLogos,
-                CallToActionBlock,
+                MyCallToActionBlock,
                 InsightsGrid,
                 Map,
                 Newsletter,

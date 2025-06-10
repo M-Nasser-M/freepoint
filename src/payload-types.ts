@@ -201,7 +201,7 @@ export interface Page {
     | FormBlock
     | AboutBlock
     | BrandLogosBlock
-    | CallToActionBlock
+    | MyCallToActionBlock
     | InsightsGridBlock
     | MapBlock
     | NewsletterBlock
@@ -409,25 +409,48 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
-  title: string;
-  description?: string | null;
-  ctaButtons?:
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
     | {
-        button: {
-          text: string;
-          href: string;
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline-solid') | null;
         };
         id?: string | null;
       }[]
     | null;
-  /**
-   * Optional: Use Tailwind CSS color classes (e.g., bg-gray-100). Defaults to bg-gray-100 if not set.
-   */
-  backgroundColor?: string | null;
-  centered?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'call-to-action-block';
+  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -766,6 +789,31 @@ export interface BrandLogosBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'brand-logos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MyCallToActionBlock".
+ */
+export interface MyCallToActionBlock {
+  title: string;
+  description?: string | null;
+  ctaButtons?:
+    | {
+        button: {
+          text: string;
+          href: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional: Use Tailwind CSS color classes (e.g., bg-gray-100). Defaults to bg-gray-100 if not set.
+   */
+  backgroundColor?: string | null;
+  centered?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'my-call-to-action-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1227,7 +1275,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         about?: T | AboutBlockSelect<T>;
         'brand-logos'?: T | BrandLogosBlockSelect<T>;
-        'call-to-action-block'?: T | CallToActionBlockSelect<T>;
+        'my-call-to-action-block'?: T | MyCallToActionBlockSelect<T>;
         'insights-grid'?: T | InsightsGridBlockSelect<T>;
         map?: T | MapBlockSelect<T>;
         newsletter?: T | NewsletterBlockSelect<T>;
@@ -1255,21 +1303,22 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ctaButtons?:
+  richText?: T;
+  links?:
     | T
     | {
-        button?:
+        link?:
           | T
           | {
-              text?: T;
-              href?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
             };
         id?: T;
       };
-  backgroundColor?: T;
-  centered?: T;
   id?: T;
   blockName?: T;
 }
@@ -1371,6 +1420,29 @@ export interface BrandLogosBlockSelect<T extends boolean = true> {
         id?: T;
       };
   backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MyCallToActionBlock_select".
+ */
+export interface MyCallToActionBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  ctaButtons?:
+    | T
+    | {
+        button?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+        id?: T;
+      };
+  backgroundColor?: T;
+  centered?: T;
   id?: T;
   blockName?: T;
 }

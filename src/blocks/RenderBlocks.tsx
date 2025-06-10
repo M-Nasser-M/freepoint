@@ -9,7 +9,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { AboutBlock } from '@/blocks/AboutBlock/Component'
 import { BrandLogosBlock } from '@/blocks/BrandLogosBlock/Component'
-import { CallToActionBlock as NewCallToActionBlock } from '@/blocks/CallToActionBlock/Component' // Renamed to avoid conflict
+import { MyCallToActionBlock } from '@/blocks/MyCallToActionBlock/Component'
 import { InsightsGridBlock } from '@/blocks/InsightsGridBlock/Component'
 import { MapBlock } from '@/blocks/MapBlock/Component'
 import { NewsletterBlock } from '@/blocks/NewsletterBlock/Component'
@@ -18,15 +18,18 @@ import { PortfolioGalleryBlock } from '@/blocks/PortfolioGalleryBlock/Component'
 import { ServicesGridBlock } from '@/blocks/ServicesGridBlock/Component'
 import { TestimonialsSectionBlock } from '@/blocks/TestimonialsSectionBlock/Component'
 
-const blockComponents = {
-  archive: ArchiveBlock,
-  content: ContentBlock,
+type blockName = Page['layout'][number]['blockType']
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const blockComponents: Record<blockName, React.FC<any>> = {
   cta: CallToActionBlock,
-  formBlock: FormBlock,
+  content: ContentBlock,
   mediaBlock: MediaBlock,
+  archive: ArchiveBlock,
+  formBlock: FormBlock,
   about: AboutBlock,
   'brand-logos': BrandLogosBlock,
-  'call-to-action-block': NewCallToActionBlock,
+  'my-call-to-action-block': MyCallToActionBlock,
   'insights-grid': InsightsGridBlock,
   map: MapBlock,
   newsletter: NewsletterBlock,
@@ -55,7 +58,6 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
               )
