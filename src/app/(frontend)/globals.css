@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@config '../../../../tailwind.config.ts';
+@config '../../../tailwind.config.ts';
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -32,73 +32,73 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 90%; /* light grey */
+    --foreground: 0 0% 10%; /* near black */
 
-    --card: 240 5% 96%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%; /* near black */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%; /* near black */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 217 100% 56%; /* brand blue */
+    --primary-foreground: 0 0% 100%; /* white */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 80%; /* medium grey */
+    --secondary-foreground: 0 0% 10%; /* near black */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 85%;
+    --muted-foreground: 0 0% 40%; /* dark grey */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 51 100% 80%; /* brand yellow */
+    --accent-foreground: 0 0% 10%; /* near black */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%; /* white */
 
-    --border: 240 6% 80%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 80%;
+    --input: 0 0% 90%;
+    --ring: 217 100% 56%; /* brand blue */
 
     --radius: 0.2rem;
 
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    --success: 148 60% 60%;
+    --warning: 40 100% 65%;
+    --error: 0 100% 70%;
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%; /* white */
 
-    --card: 0 0% 4%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%; /* white */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%; /* white */
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 217 100% 60%; /* brand blue */
+    --primary-foreground: 0 0% 0%; /* black */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%; /* white */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%; /* light grey */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 51 100% 60%; /* brand yellow */
+    --accent-foreground: 0 0% 0%; /* black */
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%; /* white */
 
-    --border: 0, 0%, 15%, 0.8;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 25%;
+    --input: 0 0% 15%;
+    --ring: 217 100% 60%; /* brand blue */
 
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+    --success: 148 100% 25%;
+    --warning: 40 100% 45%;
+    --error: 0 80% 50%;
   }
 }
 
