@@ -18,6 +18,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   const navigation = data?.navItems?.map((item) => item.link) || []
 
+  // Split navigation links for desktop layout
+  const leftNav = navigation.slice(0, 4)
+  const rightNav = navigation.slice(4)
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -36,8 +40,33 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       }`}
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <div className="flex items-center justify-between relative">
+          {/* Left navigation (first 4 links) – desktop only */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {leftNav.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <CMSLink
+                  {...item}
+                  className="text-gray-700 hover:text-blue-600 transition-colors duration-300 relative group"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
+                </CMSLink>
+              </motion.div>
+            ))}
+          </nav>
+
+          {/* Center logo – always visible, but positioned absolutely for desktop */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="md:absolute md:left-1/2 md:-translate-x-1/2"
+          >
             <Link href="/" className="flex items-center space-x-2">
               {data?.logo && typeof data.logo === 'object' ? (
                 <Media resource={data.logo} imgClassName="w-10 h-10" />
@@ -49,9 +78,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navigation.map((item, index) => (
+          {/* Right navigation (remaining links) – desktop only */}
+          <nav className="hidden md:flex items-center space-x-8 ml-auto">
+            {rightNav.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: -20 }}
@@ -73,7 +102,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2"
+            className="md:hidden p-2 ml-auto"
           >
             <AnimatePresence mode="wait">
               {isMobileMenuOpen ? (
