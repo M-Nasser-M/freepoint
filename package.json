@@ -1,7 +1,7 @@
 {
   "name": "freepoint",
   "version": "1.0.0",
-  "description": "Website template for Payload",
+  "description": "Website for freepoint using payloadcms and nextjs",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -24,7 +24,6 @@
     "@payloadcms/email-resend": "^3.42.0",
     "@payloadcms/live-preview-react": "3.42.0",
     "@payloadcms/next": "3.42.0",
-    "@payloadcms/payload-cloud": "3.42.0",
     "@payloadcms/plugin-form-builder": "3.42.0",
     "@payloadcms/plugin-nested-docs": "3.42.0",
     "@payloadcms/plugin-redirects": "3.42.0",
