@@ -152,21 +152,22 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
+    /**
+     * The first part of the main headline, before the highlighted word.
+     */
+    line1?: string | null;
+    /**
+     * The word in the headline to be specially styled (e.g., blue with a star).
+     */
+    highlightedWord?: string | null;
+    /**
+     * The part of the main headline after the highlighted word (optional).
+     */
+    line2?: string | null;
+    /**
+     * The paragraph of text below the main headline.
+     */
+    subheadline?: string | null;
     links?:
       | {
           link: {
@@ -1247,7 +1248,10 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        richText?: T;
+        line1?: T;
+        highlightedWord?: T;
+        line2?: T;
+        subheadline?: T;
         links?:
           | T
           | {

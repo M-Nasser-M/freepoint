@@ -23,7 +23,7 @@ export const Header: GlobalConfig = {
           defaultValue: 1,
         },
       ],
-      maxRows: 6,
+      maxRows: 7,
       admin: {
         initCollapsed: true,
         components: {

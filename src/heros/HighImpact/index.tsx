@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+
 
 import type { Page } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
@@ -9,7 +9,7 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { Button } from '@/components/ui/button'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,7 +40,32 @@ const buttonVariants = {
   },
 }
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+type HighImpactHeroProps = Omit<Extract<Page['hero'], { type: 'highImpact' }>, 'links' | 'richText'> & {
+  links?: Array<{
+    link: {
+      type?: ('reference' | 'custom') | null
+      newTab?: boolean | null
+      reference?: {
+        relationTo: 'pages'
+        value: string | Page
+      } | null
+      url?: string | null
+      label: string
+      appearance?: ('default' | 'secondary' | 'link' | 'outline' | 'inline' | 'destructive' | 'ghost') | null
+      icon?: string | null // Assuming icon is optional string
+    }
+    id?: string | null
+  }> | null
+}
+
+export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
+  links,
+  media,
+  line1,
+  highlightedWord,
+  line2,
+  subheadline,
+}) => {
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
@@ -51,13 +76,23 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   const secondaryButtonLink = links?.[1]?.link
 
   // Assuming an overlay is always desired for high-impact heroes for text readability.
-  const overlay = true
+  const overlay = true; // Ensure text readability over the background media
 
   return (
-    <section
-      className="relative py-20 md:py-32 bg-cover bg-center min-h-screen flex items-center"
-      style={!media ? { backgroundColor: '#1e40af' } : {}}
-    >
+    <>
+      <style jsx global>{`
+        .highlighted-word-star::after {
+          content: '★';
+          color: #facc15; /* Tailwind yellow-400 */
+          margin-left: 0.25rem; /* Adjust as needed */
+          font-size: 0.9em; /* Adjust size relative to text */
+          vertical-align: super; /* Align star nicely */
+        }
+      `}</style>
+      <section
+        className="relative bg-cover bg-center min-h-screen flex items-center py-24 md:py-32"
+        style={!media ? { backgroundColor: '#0F172A' /* e.g., slate-900 */ } : {}}
+      >
       {media && typeof media === 'object' && (
         <>
           <div className="absolute inset-0 w-full h-full -z-10">
@@ -66,7 +101,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           {overlay && (
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 0.6 }}
               transition={{ duration: 1 }}
               className="absolute inset-0 bg-black z-0"
             />
@@ -74,29 +109,46 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         </>
       )}
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center h-full">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="max-w-4xl mx-auto text-center text-white"
+          className="max-w-3xl text-left text-white"
         >
-          {richText?.root?.children && (
-            <motion.div variants={itemVariants}>
-              <RichText data={richText} />
-            </motion.div>
+                    {(line1 || highlightedWord || line2) && (
+            <motion.h1
+              variants={itemVariants}
+              className="text-5xl sm:text-6xl md:text-7xl font-bold !leading-tight mb-6"
+            >
+              {line1}{line1 && highlightedWord && ' '}
+              {highlightedWord && (
+                <span className="text-blue-400 highlighted-word-star">
+                  {highlightedWord}
+                </span>
+              )}
+              {line2 && (highlightedWord || line1) && ' '}{line2}
+            </motion.h1>
+          )}
+          {subheadline && (
+            <motion.p
+              variants={itemVariants}
+              className="text-lg sm:text-xl md:text-2xl text-slate-200 max-w-2xl opacity-90 mb-10"
+            >
+              {subheadline}
+            </motion.p>
           )}
 
           <motion.div
             variants={buttonVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
+            className="flex flex-col sm:flex-row gap-4 justify-start mt-8"
           >
             {primaryButtonLink && (
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-yellow-400 text-black hover:bg-yellow-500 transition-all duration-300"
+                  className="bg-yellow-400 text-black hover:bg-yellow-300 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md"
                 >
                   <CMSLink {...primaryButtonLink} />
                 </Button>
@@ -108,7 +160,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
                   asChild
                   size="lg"
                   variant="outline"
-                  className="text-white border-white hover:bg-white hover:text-black transition-all duration-300"
+                  className="bg-slate-700/50 text-white border border-slate-600 hover:bg-slate-600/70 transition-colors duration-300 px-8 py-3 text-lg font-semibold rounded-lg shadow-md backdrop-blur-sm"
                 >
                   <CMSLink {...secondaryButtonLink} />
                 </Button>
@@ -118,21 +170,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-white/70"
-        >
-          <ChevronDown size={32} />
-        </motion.div>
-      </motion.div>
-    </section>
+      
+      </section>
+    </>
   )
 }

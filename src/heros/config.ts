@@ -1,11 +1,6 @@
 import type { Field } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+
 
 import { linkGroup } from '@/fields/linkGroup'
 
@@ -38,20 +33,41 @@ export const hero: Field = {
       ],
       required: true,
     },
+        {
+      name: 'line1',
+      type: 'text',
+      label: 'Headline Part 1',
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
+        description: 'The first part of the main headline, before the highlighted word.',
+      },
+    },
     {
-      name: 'richText',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
-      label: false,
+      name: 'highlightedWord',
+      type: 'text',
+      label: 'Highlighted Word',
+      admin: {
+        condition: (_, { type } = {}) => type === 'highImpact',
+        description: 'The word in the headline to be specially styled (e.g., blue with a star).',
+      },
+    },
+    {
+      name: 'line2',
+      type: 'text',
+      label: 'Headline Part 2',
+      admin: {
+        condition: (_, { type } = {}) => type === 'highImpact',
+        description: 'The part of the main headline after the highlighted word (optional).',
+      },
+    },
+    {
+      name: 'subheadline',
+      type: 'textarea',
+      label: 'Subheadline',
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
+        description: 'The paragraph of text below the main headline.',
+      },
     },
     linkGroup({
       overrides: {
