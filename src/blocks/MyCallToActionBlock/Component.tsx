@@ -34,7 +34,7 @@ export function MyCallToActionBlock({
             <div className={`flex flex-col sm:flex-row gap-4 ${centered ? 'justify-center' : ''}`}>
               {ctaButtons.map((button, index) => (
                 <Button key={button.id || `button-${index}`} size="lg" asChild>
-                  <Link href={button.href}>{button.text}</Link>
+                  {button.href ? <Link href={button.href}>{button.text}</Link> : button.text}
                 </Button>
               ))}
             </div>
