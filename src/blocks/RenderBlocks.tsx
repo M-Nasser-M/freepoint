@@ -7,6 +7,16 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { AboutBlock } from '@/blocks/AboutBlock/Component'
+import { BrandLogosBlock } from '@/blocks/BrandLogosBlock/Component'
+import { CallToActionBlock as NewCallToActionBlock } from '@/blocks/CallToActionBlock/Component' // Renamed to avoid conflict
+import { InsightsGridBlock } from '@/blocks/InsightsGridBlock/Component'
+import { MapBlock } from '@/blocks/MapBlock/Component'
+import { NewsletterBlock } from '@/blocks/NewsletterBlock/Component'
+import { PageHeaderBlock } from '@/blocks/PageHeaderBlock/Component'
+import { PortfolioGalleryBlock } from '@/blocks/PortfolioGalleryBlock/Component'
+import { ServicesGridBlock } from '@/blocks/ServicesGridBlock/Component'
+import { TestimonialsSectionBlock } from '@/blocks/TestimonialsSectionBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +24,16 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  about: AboutBlock,
+  'brand-logos': BrandLogosBlock,
+  'call-to-action-block': NewCallToActionBlock,
+  'insights-grid': InsightsGridBlock,
+  map: MapBlock,
+  newsletter: NewsletterBlock,
+  'page-header': PageHeaderBlock,
+  'portfolio-gallery': PortfolioGalleryBlock,
+  'services-grid': ServicesGridBlock,
+  'testimonials-section': TestimonialsSectionBlock,
 }
 
 export const RenderBlocks: React.FC<{
