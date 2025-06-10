@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from 'next/image'
+import Link from 'next/link'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface InsightItem {
   id: string
@@ -19,9 +19,9 @@ interface InsightsGridProps {
 
 export function InsightsGrid({ insights, columns = 3 }: InsightsGridProps) {
   const gridCols = {
-    2: "md:grid-cols-2",
-    3: "md:grid-cols-3",
-    4: "md:grid-cols-4",
+    2: 'md:grid-cols-2',
+    3: 'md:grid-cols-3',
+    4: 'md:grid-cols-4',
   }
 
   return (
@@ -29,11 +29,11 @@ export function InsightsGrid({ insights, columns = 3 }: InsightsGridProps) {
       <div className="container mx-auto px-4">
         <div className={`grid grid-cols-1 ${gridCols[columns]} gap-8`}>
           {insights.map((insight) => (
-            <Link key={insight.id} href={`/insights/${insight.slug}`}>
+            <Link key={insight.id} href={`/posts/${insight.slug}`}>
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                 <div className="relative aspect-video">
                   <Image
-                    src={insight.image || "/placeholder.svg"}
+                    src={insight.image || '/placeholder.svg'}
                     alt={insight.title}
                     fill
                     className="object-cover rounded-t-lg"
@@ -44,7 +44,9 @@ export function InsightsGrid({ insights, columns = 3 }: InsightsGridProps) {
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="line-clamp-3">{insight.excerpt}</CardDescription>
-                  {insight.readTime && <p className="text-xs text-gray-500 mt-4">{insight.readTime}</p>}
+                  {insight.readTime && (
+                    <p className="text-xs text-gray-500 mt-4">{insight.readTime}</p>
+                  )}
                 </CardContent>
               </Card>
             </Link>
