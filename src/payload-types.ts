@@ -2039,6 +2039,7 @@ export interface Footer {
           url?: string | null;
           label: string;
         };
+        order: number;
         id?: string | null;
       }[]
     | null;
@@ -2087,6 +2088,7 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        order?: T;
         id?: T;
       };
   updatedAt?: T;
