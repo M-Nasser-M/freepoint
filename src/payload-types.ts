@@ -2008,6 +2008,7 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        order: number;
         id?: string | null;
       }[]
     | null;
@@ -2061,6 +2062,7 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        order?: T;
         id?: T;
       };
   logo?: T;

@@ -16,7 +16,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const navigation = data?.navItems?.map((item) => item.link) || []
+  const navigation =
+    data?.navItems?.sort((a, b) => a.order - b.order)?.map((item) => item.link) || []
 
   // Split navigation links for desktop layout
   const leftNav = navigation.slice(0, 4)

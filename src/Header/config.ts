@@ -16,6 +16,12 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'order',
+          type: 'number',
+          required: true,
+          defaultValue: 1,
+        },
       ],
       maxRows: 6,
       admin: {
