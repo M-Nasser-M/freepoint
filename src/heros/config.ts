@@ -69,6 +69,21 @@ export const hero: Field = {
         description: 'The paragraph of text below the main headline.',
       },
     },
+    {
+      name: 'layout',
+      type: 'select',
+      label: 'Layout',
+      defaultValue: 'textOnLeft',
+      options: [
+        {
+          label: 'Text on Left, Image on Right',
+          value: 'textOnLeft',
+        },
+      ],
+      admin: {
+        condition: (_, { type } = {}) => type === 'mediumImpact',
+      },
+    },
     linkGroup({
       overrides: {
         maxRows: 2,
@@ -78,7 +93,7 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
       },
       relationTo: 'media',
       required: true,
