@@ -14,10 +14,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({ links, richText }) 
         </div>
         <div className="flex flex-col gap-8">
           {(links || []).map(({ link }, i) => {
-            const { appearance, ...rest } = link
-            const newAppearance = appearance === 'outline-solid' ? 'outline' : appearance
-
-            return <CMSLink key={i} size="lg" {...rest} appearance={newAppearance} />
+            return <CMSLink key={i} size="lg" {...link} />
           })}
         </div>
       </div>
