@@ -1,6 +1,7 @@
 'use client'
 
 import { Facebook, Instagram, Linkedin } from 'lucide-react'
+import { RiTiktokLine } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
@@ -40,6 +41,7 @@ export function FooterClient({ data }: FooterClientProps) {
     if (platform.toLowerCase() === 'facebook') return <Facebook size={20} />
     if (platform.toLowerCase() === 'instagram') return <Instagram size={20} />
     if (platform.toLowerCase() === 'linkedin') return <Linkedin size={20} />
+    if (platform.toLowerCase() === 'tiktok') return <RiTiktokLine size={20} />
     return null // Or a default icon
   }
 

@@ -60,9 +60,15 @@ export const Footer: GlobalConfig = {
       fields: [
         {
           name: 'platform',
-          type: 'text',
+          type: 'select',
           label: 'Platform',
           required: true,
+          options: [
+            { label: 'Facebook', value: 'facebook' },
+            { label: 'Instagram', value: 'instagram' },
+            { label: 'LinkedIn', value: 'linkedin' },
+            { label: 'TikTok', value: 'tiktok' },
+          ],
         },
         {
           name: 'url',
