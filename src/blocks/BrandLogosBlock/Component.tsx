@@ -1,92 +1,51 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { motion } from "framer-motion"
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
+import type { BrandLogosBlock } from '@/payload-types'
+import { Marquee } from '@/components/magicui/marquee'
 
-interface BrandLogoPayload {
-  name: string;
-  logo: string | { url?: string; alt?: string }; // Can be a string (URL) or a Media object
-  url?: string;
-  id?: string; // Payload often includes an id for array items
-}
-
-interface BrandLogosBlockProps {
-  logos: BrandLogoPayload[]
-  title?: string
-  backgroundColor?: string
-}
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-}
-
-const logoVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-}
-
-export function BrandLogosBlock({ logos, title, backgroundColor = "bg-white" }: BrandLogosBlockProps) {
+export function BrandLogosBlock({ logos, title, backgroundColor = 'bg-white' }: BrandLogosBlock) {
   return (
     <section className={`py-12 ${backgroundColor}`}>
       <div className="container mx-auto px-4">
         {title && (
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center text-xl font-semibold mb-8 text-gray-800"
-          >
+          <h2 className="text-center text-xl font-semibold mb-8 text-gray-800">
             {title}
-          </motion.h2>
+          </h2>
         )}
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={containerVariants}
-          className="flex flex-wrap justify-center items-center gap-8 md:gap-12"
-        >
+        <Marquee pauseOnHover className="[--duration:60s]">
           {logos?.map((brand) => {
-            const logoSrc = typeof brand.logo === 'string' ? brand.logo : brand.logo?.url;
-            const logoAlt = typeof brand.logo === 'string' ? brand.name : brand.logo?.alt || brand.name;
+            const logoData = brand.logo;
 
-            if (!logoSrc) return null;
+            let logoSrc: string | null | undefined = null;
+            let logoAlt: string = brand.name; // Default alt text to brand name
+
+            if (typeof logoData === 'object' && logoData !== null) {
+              // logoData is a Media object
+              logoSrc = logoData.url;
+              logoAlt = logoData.alt || brand.name; // Use media alt, or fallback to brand name
+            }
+            // If logoData is a number (ID), logoSrc remains null/undefined.
+            // The existing `if (!logoSrc) return null;` will handle this.
+
+            if (!logoSrc) return null
 
             const imageElement = (
               <Image
                 src={logoSrc}
                 alt={logoAlt}
-                width={120}
-                height={60}
-                className="object-contain"
+                width={120} // You might want to adjust these dimensions
+                height={60} // or make them more dynamic
+                className="object-contain mx-4"
               />
-            );
+            )
 
             return (
-              <motion.div
+              <div
                 key={brand.id || brand.name}
-                variants={logoVariants}
-                whileHover={{
-                  scale: 1.1,
-                  filter: "grayscale(0%)",
-                  transition: { duration: 0.3 },
-                }}
-                className="grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+                className="flex items-center justify-center"
               >
                 {brand.url ? (
                   <Link href={brand.url} target="_blank" rel="noopener noreferrer">
@@ -95,10 +54,10 @@ export function BrandLogosBlock({ logos, title, backgroundColor = "bg-white" }: 
                 ) : (
                   imageElement
                 )}
-              </motion.div>
-            );
+              </div>
+            )
           })}
-        </motion.div>
+        </Marquee>
       </div>
     </section>
   )
