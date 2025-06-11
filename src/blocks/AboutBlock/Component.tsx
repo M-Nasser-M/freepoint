@@ -5,7 +5,7 @@ import type { AboutBlock } from '@/payload-types'
 
 export function AboutBlock({ title, description, stats, links }: AboutBlock) {
   return (
-    <section className={`py-16 text-white`}>
+    <section className="py-16 bg-blue-600 text-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
