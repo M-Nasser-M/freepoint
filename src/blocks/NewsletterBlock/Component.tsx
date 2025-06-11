@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
+import type React from 'react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface NewsletterBlockProps {
   title: string
@@ -18,25 +18,25 @@ interface NewsletterBlockProps {
 export function NewsletterBlock({
   title,
   description,
-  placeholder = "Email",
-  buttonText = "Subscribe",
-  backgroundColor = "bg-blue-600",
+  placeholder = 'Email',
+  buttonText = 'Subscribe',
+  backgroundColor = 'bg-blue-600',
 }: NewsletterBlockProps) {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState('')
   const [isSubscribed, setIsSubscribed] = useState(false)
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null);
+    setError(null)
     // Basic email validation
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address.");
-      return;
+      setError('Please enter a valid email address.')
+      return
     }
 
     // Simulate API call
-    console.log("Subscribing with:", email);
+    console.log('Subscribing with:', email)
     // Replace with your actual newsletter subscription logic
     // try {
     //   const response = await fetch('/api/subscribe-newsletter', {
@@ -56,7 +56,7 @@ export function NewsletterBlock({
     setIsSubscribed(true)
     setTimeout(() => {
       setIsSubscribed(false)
-      setEmail("")
+      setEmail('')
     }, 3000)
   }
 
@@ -68,7 +68,7 @@ export function NewsletterBlock({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto text-center text-white"
+          className="max-w-4xl mx-auto text-center text-black"
         >
           <div className="flex items-center justify-center mb-6">
             <motion.h2
