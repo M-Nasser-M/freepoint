@@ -65,7 +65,7 @@ export function FooterClient({ data }: FooterClientProps) {
               whileHover={{ scale: 1.05 }}
               className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4"
             >
-              {logo && <Media resource={logo} imgClassName="w-10 h-10" />}
+              {logo ? <Media resource={logo} imgClassName="w-10 h-10" /> : 'FP'}
             </motion.div>
             <p className="text-gray-700 text-sm leading-relaxed">
               {companyInfo?.description ||
