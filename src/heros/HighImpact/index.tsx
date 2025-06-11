@@ -91,7 +91,7 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
           </>
         )}
 
-        <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center h-full">
+        <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center items-center h-full">
           <motion.div
             initial="hidden"
             animate="visible"
