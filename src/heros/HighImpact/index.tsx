@@ -123,7 +123,7 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({
 
             <motion.div
               variants={buttonVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-start mt-8"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8"
             >
               {primaryButtonLink && (
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

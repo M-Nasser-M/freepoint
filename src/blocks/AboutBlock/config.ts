@@ -1,3 +1,4 @@
+import { linkGroup } from '@/fields/linkGroup'
 import { Block } from 'payload'
 
 export const About: Block = {
@@ -30,21 +31,11 @@ export const About: Block = {
         },
       ],
     },
-    {
-      name: 'ctaButton',
-      type: 'group',
-      fields: [
-        {
-          name: 'text',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'href',
-          type: 'text',
-          required: true,
-        },
-      ],
-    },
+
+    linkGroup({
+      overrides: {
+        maxRows: 1,
+      },
+    }),
   ],
 }

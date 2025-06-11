@@ -1,41 +1,23 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { CMSLink } from '@/components/Link'
+import type { AboutBlock } from '@/payload-types'
 
-interface AboutBlockProps {
-  title: string
-  description: string
-  stats?: Array<{
-    number: string
-    label: string
-  }>
-  ctaButton?: {
-    text: string
-    href: string
-  }
-  backgroundColor?: string
-}
-
-export function AboutBlock({
-  title,
-  description,
-  stats,
-  ctaButton,
-  backgroundColor = 'bg-blue-600',
-}: AboutBlockProps) {
+export function AboutBlock({ title, description, stats, links }: AboutBlock) {
   return (
-    <section className={`py-16 ${backgroundColor} text-white`}>
+    <section className={`py-16 text-white`}>
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-yellow-400">{title}</h2>
             <p className="text-lg mb-8 opacity-90">{description}</p>
-            {ctaButton && (
+            {links && (
               <Button
                 variant="outline"
                 className="text-black border-white hover:bg-white hover:text-blue-600"
                 asChild
               >
-                <a href={ctaButton.href}>{ctaButton.text}</a>
+                <CMSLink {...links[0]?.link} />
               </Button>
             )}
           </div>

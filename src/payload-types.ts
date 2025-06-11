@@ -761,10 +761,30 @@ export interface AboutBlock {
         id?: string | null;
       }[]
     | null;
-  ctaButton: {
-    text: string;
-    href: string;
-  };
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1400,11 +1420,20 @@ export interface AboutBlockSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
-  ctaButton?:
+  links?:
     | T
     | {
-        text?: T;
-        href?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
