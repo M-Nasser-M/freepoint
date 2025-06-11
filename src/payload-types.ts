@@ -2083,7 +2083,7 @@ export interface Footer {
   };
   socialLinks?:
     | {
-        platform: string;
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'tiktok';
         url: string;
         id?: string | null;
       }[]

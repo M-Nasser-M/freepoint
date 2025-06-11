@@ -1,13 +1,12 @@
 'use client'
 
-import { Facebook, Instagram, Linkedin } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Phone, Mail } from 'lucide-react'
 import { RiTiktokLine } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
 
 import type { Footer as FooterType } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
 
 interface FooterClientProps {
   data: FooterType
@@ -34,15 +33,17 @@ const itemVariants = {
 }
 
 export function FooterClient({ data }: FooterClientProps) {
-  const { companyInfo, socialLinks, navItems } = data || {}
-  const copyright = `© ${new Date().getFullYear()} Freepoint. All rights reserved.`
+  const { companyInfo, socialLinks } = data || {}
+  // Use the static copyright text from the image
+  const copyrightText = `© ${new Date().getFullYear()} Freepoint. All rights reserved.`
 
   const renderSocialIcon = (platform: string) => {
-    if (platform.toLowerCase() === 'facebook') return <Facebook size={20} />
-    if (platform.toLowerCase() === 'instagram') return <Instagram size={20} />
-    if (platform.toLowerCase() === 'linkedin') return <Linkedin size={20} />
-    if (platform.toLowerCase() === 'tiktok') return <RiTiktokLine size={20} />
-    return null // Or a default icon
+    // Adjusted size for social icons
+    if (platform.toLowerCase() === 'facebook') return <Facebook size={18} />
+    if (platform.toLowerCase() === 'instagram') return <Instagram size={18} />
+    if (platform.toLowerCase() === 'linkedin') return <Linkedin size={18} />
+    if (platform.toLowerCase() === 'tiktok') return <RiTiktokLine size={18} /> // Kept for completeness, though not in image
+    return null
   }
 
   return (
@@ -51,45 +52,49 @@ export function FooterClient({ data }: FooterClientProps) {
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       variants={containerVariants}
-      className="bg-gray-100 py-8"
+      className="bg-gray-100 py-12"
     >
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Company Info Section */}
-          <motion.div variants={itemVariants}>
+        {/* Top Row: Logo/Description and Contact Info */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
+          {/* Left Side: Company Info (Logo & Description) */}
+          <motion.div variants={itemVariants} className="md:w-1/3">
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4"
             >
               <span className="text-white font-bold text-lg">FP</span>
             </motion.div>
-            <p className="text-gray-600 mb-4">
-              {companyInfo?.description || 'Modern, beautiful, and performant websites.'}
+            <p className="text-gray-700 text-sm leading-relaxed">
+              {companyInfo?.description ||
+                "Let's bring your vision to life. Whether you're ready to go or just exploring, drop us a line."}
             </p>
           </motion.div>
 
-          {/* Contact Info & Social Links Section */}
-          <motion.div variants={itemVariants}>
-            <h3 className="font-semibold mb-4">Contact Info:</h3>
+          {/* Right Side: Contact Info & Social Links */}
+          <motion.div variants={itemVariants} className="md:w-auto">
+            <h3 className="font-semibold text-gray-800 mb-3 text-base">Contact Info:</h3>
             {companyInfo?.phone && (
               <motion.p
-                whileHover={{ x: 5 }}
-                className="text-gray-600 mb-2 transition-transform duration-200"
+                whileHover={{ x: 3 }}
+                className="text-gray-700 text-sm mb-1 flex items-center transition-transform duration-200"
               >
+                <Phone size={16} className="mr-2 text-gray-600" />
                 {companyInfo.phone}
               </motion.p>
             )}
             {companyInfo?.email && (
               <motion.p
-                whileHover={{ x: 5 }}
-                className="text-gray-600 mb-4 transition-transform duration-200"
+                whileHover={{ x: 3 }}
+                className="text-gray-700 text-sm mb-4 flex items-center transition-transform duration-200"
               >
+                <Mail size={16} className="mr-2 text-gray-600" />
                 {companyInfo.email}
               </motion.p>
             )}
 
             {socialLinks && socialLinks.length > 0 && (
-              <div className="flex space-x-4 mt-4">
+              <div className="flex space-x-3 mt-3">
                 {(socialLinks || []).map(
                   (social, index) =>
                     social.platform &&
@@ -116,38 +121,11 @@ export function FooterClient({ data }: FooterClientProps) {
               </div>
             )}
           </motion.div>
-
-          {/* Navigation Links Section */}
-          {navItems && navItems.length > 0 && (
-            <motion.div variants={itemVariants}>
-              <h3 className="font-semibold mb-4">Quick Links:</h3>
-              <ul className="space-y-2">
-                {(navItems || []).map(
-                  (item, index) =>
-                    item.link && (
-                      <motion.li
-                        key={item.id || index}
-                        whileHover={{ x: 5 }}
-                        className="transition-transform duration-200"
-                      >
-                        <CMSLink
-                          url={item.link.url}
-                          label={item.link.label}
-                          className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
-                        />
-                      </motion.li>
-                    ),
-                )}
-              </ul>
-            </motion.div>
-          )}
         </div>
 
-        <motion.div
-          variants={itemVariants}
-          className="text-center text-gray-500 mt-8 pt-8 border-t border-gray-200"
-        >
-          {copyright}
+        {/* Bottom Row: Copyright */}
+        <motion.div variants={itemVariants} className="text-center pt-8 border-t border-gray-200">
+          <p className="text-gray-600 text-sm">{copyrightText}</p>
         </motion.div>
       </div>
     </motion.footer>
