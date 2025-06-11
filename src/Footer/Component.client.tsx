@@ -7,6 +7,8 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Footer as FooterType } from '@/payload-types'
+import { Media } from '@/components/Media'
+import { CMSLink } from '@/components/Link'
 
 interface FooterClientProps {
   data: FooterType
@@ -33,7 +35,7 @@ const itemVariants = {
 }
 
 export function FooterClient({ data }: FooterClientProps) {
-  const { companyInfo, socialLinks } = data || {}
+  const { companyInfo, socialLinks, navItems, logo } = data || {}
   // Use the static copyright text from the image
   const copyrightText = `© ${new Date().getFullYear()} Freepoint. All rights reserved.`
 
@@ -63,7 +65,7 @@ export function FooterClient({ data }: FooterClientProps) {
               whileHover={{ scale: 1.05 }}
               className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4"
             >
-              <span className="text-white font-bold text-lg">FP</span>
+              {logo && <Media resource={logo} imgClassName="w-10 h-10" />}
             </motion.div>
             <p className="text-gray-700 text-sm leading-relaxed">
               {companyInfo?.description ||
@@ -73,6 +75,32 @@ export function FooterClient({ data }: FooterClientProps) {
 
           {/* Right Side: Contact Info & Social Links */}
           <motion.div variants={itemVariants} className="md:w-auto">
+            {/* Quick Links Section */}
+            {navItems && navItems.length > 0 && (
+              <motion.div variants={itemVariants} className="mb-6">
+                <h3 className="font-semibold text-gray-800 mb-3 text-base">Quick Links:</h3>
+                <ul className="space-y-2">
+                  {(navItems || []).map(
+                    (item, index) =>
+                      item.link && (
+                        <motion.li
+                          key={item.id || index}
+                          whileHover={{ x: 5 }}
+                          className="transition-transform duration-200"
+                        >
+                          <CMSLink
+                            {...item.link}
+                            className="text-gray-700 text-sm hover:text-blue-600 transition-colors duration-300"
+                          >
+                            {item.link.label}
+                          </CMSLink>
+                        </motion.li>
+                      ),
+                  )}
+                </ul>
+              </motion.div>
+            )}
+
             <h3 className="font-semibold text-gray-800 mb-3 text-base">Contact Info:</h3>
             {companyInfo?.phone && (
               <motion.p
