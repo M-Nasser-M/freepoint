@@ -74,7 +74,7 @@ export function FooterClient({ data }: FooterClientProps) {
           </motion.div>
 
           {/* Right Side: Contact Info & Social Links */}
-          <motion.div variants={itemVariants} className="md:w-auto">
+          <motion.div variants={itemVariants} className="md:w-auto flex flex-row gap-6">
             {/* Quick Links Section */}
             {navItems && navItems.length > 0 && (
               <motion.div variants={itemVariants} className="mb-6">
@@ -100,54 +100,55 @@ export function FooterClient({ data }: FooterClientProps) {
                 </ul>
               </motion.div>
             )}
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-3 text-base">Contact Info:</h3>
+              {companyInfo?.phone && (
+                <motion.p
+                  whileHover={{ x: 3 }}
+                  className="text-gray-700 text-sm mb-1 flex items-center transition-transform duration-200"
+                >
+                  <Phone size={16} className="mr-2 text-gray-600" />
+                  {companyInfo.phone}
+                </motion.p>
+              )}
+              {companyInfo?.email && (
+                <motion.p
+                  whileHover={{ x: 3 }}
+                  className="text-gray-700 text-sm mb-4 flex items-center transition-transform duration-200"
+                >
+                  <Mail size={16} className="mr-2 text-gray-600" />
+                  {companyInfo.email}
+                </motion.p>
+              )}
 
-            <h3 className="font-semibold text-gray-800 mb-3 text-base">Contact Info:</h3>
-            {companyInfo?.phone && (
-              <motion.p
-                whileHover={{ x: 3 }}
-                className="text-gray-700 text-sm mb-1 flex items-center transition-transform duration-200"
-              >
-                <Phone size={16} className="mr-2 text-gray-600" />
-                {companyInfo.phone}
-              </motion.p>
-            )}
-            {companyInfo?.email && (
-              <motion.p
-                whileHover={{ x: 3 }}
-                className="text-gray-700 text-sm mb-4 flex items-center transition-transform duration-200"
-              >
-                <Mail size={16} className="mr-2 text-gray-600" />
-                {companyInfo.email}
-              </motion.p>
-            )}
-
-            {socialLinks && socialLinks.length > 0 && (
-              <div className="flex space-x-3 mt-3">
-                {(socialLinks || []).map(
-                  (social, index) =>
-                    social.platform &&
-                    social.url && (
-                      <motion.div
-                        key={social.id || `${social.platform}-${index}`}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Link
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+              {socialLinks && socialLinks.length > 0 && (
+                <div className="flex space-x-3 mt-3">
+                  {(socialLinks || []).map(
+                    (social, index) =>
+                      social.platform &&
+                      social.url && (
+                        <motion.div
+                          key={social.id || `${social.platform}-${index}`}
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                          whileHover={{ scale: 1.2, rotate: 5 }}
+                          whileTap={{ scale: 0.9 }}
                         >
-                          {renderSocialIcon(social.platform)}
-                        </Link>
-                      </motion.div>
-                    ),
-                )}
-              </div>
-            )}
+                          <Link
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+                          >
+                            {renderSocialIcon(social.platform)}
+                          </Link>
+                        </motion.div>
+                      ),
+                  )}
+                </div>
+              )}
+            </div>
           </motion.div>
         </div>
 
