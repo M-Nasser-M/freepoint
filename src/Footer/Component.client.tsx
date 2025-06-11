@@ -63,7 +63,7 @@ export function FooterClient({ data }: FooterClientProps) {
           <motion.div variants={itemVariants} className="md:w-1/3">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4"
+              className={`w-10 h-10 rounded-full flex items-center justify-center mb-4   ${!logo && 'bg-blue-600'}`}
             >
               {logo ? <Media resource={logo} imgClassName="w-10 h-10" /> : 'FP'}
             </motion.div>
@@ -91,9 +91,7 @@ export function FooterClient({ data }: FooterClientProps) {
                           <CMSLink
                             {...item.link}
                             className="text-gray-700 text-sm hover:text-blue-600 transition-colors duration-300"
-                          >
-                            {item.link.label}
-                          </CMSLink>
+                          />
                         </motion.li>
                       ),
                   )}
