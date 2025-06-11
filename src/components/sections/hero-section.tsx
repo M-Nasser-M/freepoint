@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 
 interface HeroSectionProps {
   title: string
@@ -36,7 +36,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: 'easeOut' },
   },
 }
 
@@ -45,7 +45,7 @@ const buttonVariants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
 }
 
@@ -61,7 +61,11 @@ export function HeroSection({
   return (
     <section
       className="relative py-20 md:py-32 bg-cover bg-center min-h-screen flex items-center"
-      style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : { backgroundColor: "#1e40af" }}
+      style={
+        backgroundImage
+          ? { backgroundImage: `url(${backgroundImage})` }
+          : { backgroundColor: '#1e40af' }
+      }
     >
       {overlay && backgroundImage && (
         <motion.div
@@ -95,10 +99,16 @@ export function HeroSection({
             </motion.p>
           )}
 
-          <motion.div variants={buttonVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.div
+            variants={buttonVariants}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
             {primaryButton && (
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-500 transition-all duration-300">
+                <Button
+                  size="lg"
+                  className="bg-yellow-400 text-black hover:bg-yellow-500 transition-all duration-300"
+                >
                   {primaryButton.text}
                 </Button>
               </motion.div>
@@ -108,7 +118,7 @@ export function HeroSection({
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-white border-white hover:bg-white hover:text-black transition-all duration-300"
+                  className="text-black border-white hover:bg-white hover:text-black transition-all duration-300"
                 >
                   {secondaryButton.text}
                 </Button>

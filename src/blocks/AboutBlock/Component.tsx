@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 interface AboutBlockProps {
   title: string
@@ -20,7 +20,7 @@ export function AboutBlock({
   description,
   stats,
   ctaButton,
-  backgroundColor = "bg-blue-600",
+  backgroundColor = 'bg-blue-600',
 }: AboutBlockProps) {
   return (
     <section className={`py-16 ${backgroundColor} text-white`}>
@@ -30,7 +30,11 @@ export function AboutBlock({
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-yellow-400">{title}</h2>
             <p className="text-lg mb-8 opacity-90">{description}</p>
             {ctaButton && (
-              <Button variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600" asChild>
+              <Button
+                variant="outline"
+                className="text-black border-white hover:bg-white hover:text-blue-600"
+                asChild
+              >
                 <a href={ctaButton.href}>{ctaButton.text}</a>
               </Button>
             )}
