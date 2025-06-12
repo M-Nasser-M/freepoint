@@ -64,8 +64,9 @@ export function FooterClient({ data }: FooterClientProps) {
             <motion.div
               whileHover={{ scale: 1.05 }}
               className={`w-10 h-10 rounded-full flex items-center justify-center mb-4   ${!logo && 'bg-blue-600'}`}
-            >
-              {logo ? <Link href="/" passHref><Media resource={logo} imgClassName="w-10 h-10" /></Link> : 'FP'}
+            ><Link href="/" className="flex items-center space-x-2">
+                {logo ? <Media resource={logo} imgClassName="w-10 h-10" /> : 'FP'}
+              </Link>
             </motion.div>
             <p className="text-gray-700 text-sm leading-relaxed">
               {companyInfo?.description ||
