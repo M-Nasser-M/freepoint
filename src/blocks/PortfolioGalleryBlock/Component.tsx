@@ -75,7 +75,7 @@ export function PortfolioGalleryBlock({
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-8 bg-white">
       <div className="container mx-auto px-4">
         {title && <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">{title}</h2>}
         {showFilters && uniqueCategories.length > 0 && (
