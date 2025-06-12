@@ -4,24 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
-
-interface PortfolioItem {
-  id: string
-  title: string
-  category?: { title: string } | string // From relationship or text
-  image: string | { url?: string; alt?: string; filename?: string } // Payload media object or URL string
-  description?: string
-  // Add other fields from your 'portfolio' collection as needed
-}
-
-interface PortfolioGalleryBlockProps {
-  title?: string // Optional title for the section
-  portfolioItems: PortfolioItem[]
-  categoriesFromCMS?: { id: string; title: string }[] // Categories from a collection relationship
-  showFilters?: boolean
-  columns?: '2' | '3' | '4'
-  defaultFilter?: string
-}
+import type { PortfolioGalleryBlock, PortfolioItem } from "@/payload-types"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -51,18 +34,19 @@ const itemVariants = {
 
 export function PortfolioGalleryBlock({
   title,
-  portfolioItems = [],
-  categoriesFromCMS = [],
+  items = [],
+  categories = [],
   showFilters = true,
   columns = '3',
-  defaultFilter = "All Works",
-}: PortfolioGalleryBlockProps) {
+}: PortfolioGalleryBlock) {
+  const portfolioItems = (items || []) as PortfolioItem[]
+  const defaultFilter = "All Works"
   const [activeFilter, setActiveFilter] = useState(defaultFilter)
   const [filteredItems, setFilteredItems] = useState(portfolioItems)
 
   useEffect(() => {
     handleFilter(activeFilter); // Apply initial filter or when items change
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [portfolioItems, activeFilter]);
 
   const gridCols = {
@@ -77,8 +61,8 @@ export function PortfolioGalleryBlock({
     return category.title || ''; // Handles the { title: string } case
   }
 
-  const uniqueCategories = categoriesFromCMS.length > 0 
-    ? categoriesFromCMS.map(c => c.title)
+  const uniqueCategories = (categories || []).length > 0
+    ? (categories || []).map(c => c.categoryName)
     : Array.from(new Set(portfolioItems.map(item => getCategoryTitle(item.category)).filter(Boolean)));
 
   const handleFilter = (categoryLabel: string) => {
@@ -124,11 +108,19 @@ export function PortfolioGalleryBlock({
           </motion.div>
         )}
 
-        <motion.div layout variants={containerVariants} initial="hidden" animate="visible" className={`grid grid-cols-1 ${gridCols[columns]} gap-6`}>
+        <motion.div
+          layout
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className={`grid grid-cols-1 ${gridCols[columns as keyof typeof gridCols]} gap-6`}
+        >
           <AnimatePresence mode="sync">
             {filteredItems.map((item) => {
-              const imageUrl = typeof item.image === 'string' ? item.image : item.image?.url;
-              const imageAlt = typeof item.image === 'string' ? item.title : item.image?.alt || item.image?.filename || item.title;
+              if (!item || typeof item === 'number') return null;
+
+              const imageUrl = (typeof item.image === 'object' && item.image ? item.image.url : item.image) as string;
+              const imageAlt = typeof item.image === 'object' && item.image ? item.image.alt || item.title : item.title;
 
               return (
                 <motion.div

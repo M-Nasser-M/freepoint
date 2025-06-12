@@ -5,9 +5,9 @@ import Link from 'next/link'
 import type { BrandLogosBlock } from '@/payload-types'
 import { Marquee } from '@/components/magicui/marquee'
 
-export function BrandLogosBlock({ logos, title, backgroundColor = 'bg-white' }: BrandLogosBlock) {
+export function BrandLogosBlock({ logos, title }: BrandLogosBlock) {
   return (
-    <section className={`py-12 ${backgroundColor}`}>
+    <section className="py-16 bg-white" >
       <div className="container mx-auto px-4">
         {title && (
           <h2 className="text-center text-xl font-semibold mb-8 text-gray-800">
@@ -15,7 +15,7 @@ export function BrandLogosBlock({ logos, title, backgroundColor = 'bg-white' }: 
           </h2>
         )}
 
-        <Marquee pauseOnHover className="[--duration:60s]">
+        <Marquee pauseOnHover className="[--duration:15s]">
           {logos?.map((brand) => {
             const logoData = brand.logo;
 

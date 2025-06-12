@@ -51,7 +51,9 @@ export const RenderBlocks: React.FC<{
       <Fragment>
         {blocks.map((block, index) => {
           const { blockType } = block
-
+          if (blockType === "portfolio-gallery") {
+            console.log(block);
+          }
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
